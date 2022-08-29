@@ -20,6 +20,16 @@ public:
 void printTree(treeNode *root, int level);
 void spacePrint(int level);
 
+void inOrder(treeNode *root, string &chk)
+{
+    if (root == NULL)
+        return;
+
+    inOrder(root->leftChild, chk);
+    chk += to_string(root->data);
+    inOrder(root->rightChild, chk);
+}
+
 /*
 Root: 0
 left:
@@ -40,12 +50,12 @@ void printTree(treeNode *root, int level)
 {
     if (root == NULL) // WHEN THE TREE IS EMPTY
         return;
-    if (root->leftChild == NULL && root->rightChild == NULL) //CASE 1
+    if (root->leftChild == NULL && root->rightChild == NULL) // CASE 1
     {
         cout << root->data << endl;
         return;
     }
-    else //CASE 2
+    else // CASE 2
     {
         cout << endl;
         spacePrint(level);
@@ -92,7 +102,7 @@ int main(void)
         cin >> value >> left >> right;
         allNodes[i]->data = value;
 
-        if(left > n-1 || right > n-1)
+        if (left > n - 1 || right > n - 1)
         {
             cout << "Invalid Index" << endl;
             break;
@@ -109,6 +119,10 @@ int main(void)
     }
 
     printTree(allNodes[0], 0);
+    string inordertraversal = "";
+    inOrder(allNodes[0], inordertraversal);
+
+    cout << "Inorder Traversal : " << inordertraversal << endl;
 }
 
 /*
