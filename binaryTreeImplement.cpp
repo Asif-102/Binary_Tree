@@ -105,6 +105,44 @@ void spacePrint(int level)
     }
 }
 
+void levelOrderTraversal(treeNode *root, string &chk)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+
+    queue<treeNode *> q;
+    q.push(root);
+    q.push(NULL);
+
+    while (!q.empty())
+    {
+        treeNode *chkNode = q.front();
+        q.pop();
+        if (chkNode != NULL)
+        {
+            cout << chkNode->data << " ";
+            chk += to_string(chkNode->data);
+            if (chkNode->leftChild != NULL)
+            {
+                q.push(chkNode->leftChild);
+            }
+            if (chkNode->rightChild != NULL)
+            {
+                q.push(chkNode->rightChild);
+            }
+        }
+        else
+        {
+            if (!q.empty())
+            {
+                q.push(NULL);
+            }
+        }
+    }
+}
+
 int main(void)
 {
     int n;
@@ -143,11 +181,12 @@ int main(void)
     string inordertraversal = "";
     string preordertraversal = "";
     string postordertraversal = "";
+    string levelordertraversal = "";
 
     inOrder(allNodes[0], inordertraversal);
     preOrder(allNodes[0], preordertraversal);
     postOrder(allNodes[0], postordertraversal);
-
+    levelOrderTraversal(allNodes[0], levelordertraversal);
 
     cout << "Inorder Traversal : " << inordertraversal << endl;
     cout << "Preorder Traversal : " << preordertraversal << endl;
